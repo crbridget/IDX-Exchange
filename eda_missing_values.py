@@ -4,6 +4,18 @@ import pandas as pd
 sold = pd.read_csv('sold_combined_residential.csv')
 listings = pd.read_csv('listings_combined_residential.csv')
 
+# Inspect structure
+print(sold.columns.tolist())
+print(sold.head())
+
+# Check property categories (should only be Residential since already filtered)
+print(sold['PropertyType'].unique())
+print(listings['PropertyType'].unique())
+
+# Validate completeness
+print(sold.isnull().sum())
+print(listings.isnull().sum())
+
 # Shape
 print(f"Sold shape: {sold.shape}")
 print(f"Listed shape: {listings.shape}\n")
