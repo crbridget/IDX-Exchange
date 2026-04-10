@@ -1,8 +1,9 @@
 import pandas as pd
+import os
 
 # Load data
-sold = pd.read_csv('sold_combined_residential.csv')
-listings = pd.read_csv('listings_combined_residential.csv')
+sold = pd.read_csv('data/sold_combined_residential.csv')
+listings = pd.read_csv('data/listings_combined_residential.csv')
 
 # Inspect structure
 print(sold.columns.tolist())
@@ -66,12 +67,13 @@ def drop_missing_columns(df, flagged_cols, name):
 
     return df.drop(columns=to_drop)
 
-sold_cleaned = drop_missing_columns(sold, sold_flagged, 'Sold')
-listings_cleaned = drop_missing_columns(listings, listings_flagged, 'Listings')
+sold_filtered = drop_missing_columns(sold, sold_flagged, 'Sold')
+listings_filtered = drop_missing_columns(listings, listings_flagged, 'Listings')
 
-print(f"\nSold columns before: {len(sold.columns)}, after: {len(sold_cleaned.columns)}")
-print(f"Listings columns before: {len(listings.columns)}, after: {len(listings_cleaned.columns)}")
+print(f"\nSold columns before: {len(sold.columns)}, after: {len(sold_filtered.columns)}")
+print(f"Listings columns before: {len(listings.columns)}, after: {len(listings_filtered.columns)}")
 
 # Save
-sold_cleaned.to_csv('sold_combined_residential.csv', index=False)
-listings_cleaned.to_csv('listings_combined_residential.csv', index=False)
+os.makedirs('data', exist_ok=True)
+sold_filtered.to_csv('data/sold_filtered.csv', index=False)
+listings_filtered.to_csv('data/listings_filtered.csv', index=False)

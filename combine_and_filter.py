@@ -1,5 +1,6 @@
 import pandas as pd
 import glob
+import os
 
 # Load files
 sold_files = sorted(glob.glob('raw/CRMLSSold*.csv'))
@@ -52,7 +53,8 @@ print("\n--- PropertyType frequency after filter (Listings) ---")
 print(listings['PropertyType'].value_counts())
 
 # Save
-sold.to_csv('sold_combined_residential.csv', index=False)
-listings.to_csv('listings_combined_residential.csv', index=False)
+os.makedirs('data', exist_ok=True)
+sold.to_csv('data/sold_combined_residential.csv', index=False)
+listings.to_csv('data/listings_combined_residential.csv', index=False)
 
 print("\nFiles saved!")

@@ -6,8 +6,9 @@ import os
 os.makedirs('plots', exist_ok=True)
 
 # Load data
-sold = pd.read_csv('sold_combined_residential.csv')
-listings = pd.read_csv('listings_combined_residential.csv')
+sold = pd.read_csv('data/sold_filtered.csv')
+listings = pd.read_csv('data/listings_filtered.csv')
+
 
 def analyze_numeric_distribution(df, name):
     """
