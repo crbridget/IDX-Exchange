@@ -1,0 +1,9 @@
+# Raw data files
+raw/
+*.csv
+
+# System files
+.DS_Store
+
+# IDE
+.idea/
