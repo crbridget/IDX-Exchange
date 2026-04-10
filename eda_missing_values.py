@@ -14,7 +14,7 @@ print(listings['PropertyType'].unique())
 
 # Validate completeness
 print(sold.isnull().sum())
-print(listings.isnull().sum())
+print(f"{listings.isnull().sum()}\n")
 
 # Shape
 print(f"Sold shape: {sold.shape}")
@@ -72,3 +72,6 @@ listings_cleaned = drop_missing_columns(listings, listings_flagged, 'Listings')
 print(f"\nSold columns before: {len(sold.columns)}, after: {len(sold_cleaned.columns)}")
 print(f"Listings columns before: {len(listings.columns)}, after: {len(listings_cleaned.columns)}")
 
+# Save
+sold_cleaned.to_csv('sold_combined_residential.csv', index=False)
+listings_cleaned.to_csv('listings_combined_residential.csv', index=False)
