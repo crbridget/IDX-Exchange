@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import glob
 
 # Load data
 sold = pd.read_csv('data/sold_combined_residential.csv')
@@ -72,6 +73,54 @@ listings_filtered = drop_missing_columns(listings, listings_flagged, 'Listings')
 
 print(f"\nSold columns before: {len(sold.columns)}, after: {len(sold_filtered.columns)}")
 print(f"Listings columns before: {len(listings.columns)}, after: {len(listings_filtered.columns)}")
+
+# EDA Questions
+
+# 1. Residential vs other property type share (from raw unfiltered data)
+sold_files = sorted(glob.glob('raw/CRMLSSold*.csv'))
+sold_raw_all = pd.concat([pd.read_csv(f, low_memory=False) for f in sold_files], ignore_index=True)
+
+print("\n--- Property Type Share (Sold) ---")
+print(sold_raw_all['PropertyType'].value_counts(normalize=True).mul(100).round(2))
+
+listing_files = sorted(glob.glob('raw/CRMLSListing*.csv'))
+listings_raw_all = pd.concat([pd.read_csv(f, low_memory=False) for f in listing_files], ignore_index=True)
+
+print("\n--- Property Type Share (Listings) ---")
+print(listings_raw_all['PropertyType'].value_counts(normalize=True).mul(100).round(2))
+
+# 2. Median and average close price
+print("\n--- Close Price Stats ---")
+print(f"Median ClosePrice: ${sold_filtered['ClosePrice'].median():,.0f}")
+print(f"Mean ClosePrice: ${sold_filtered['ClosePrice'].mean():,.0f}")
+
+# 3. Days on Market distribution
+print("\n--- Days on Market Distribution ---")
+print(sold_filtered['DaysOnMarket'].describe(percentiles=[.25, .50, .75, .90, .95]))
+
+# 4. % sold above vs below list price
+sold_filtered['above_list'] = sold_filtered['ClosePrice'] > sold_filtered['ListPrice']
+above = sold_filtered['above_list'].sum()
+below = (~sold_filtered['above_list']).sum()
+total = len(sold_filtered)
+print(f"\n--- Sold Above vs Below List Price ---")
+print(f"Above list: {above / total * 100:.1f}%")
+print(f"Below list: {below / total * 100:.1f}%")
+
+# 5. Date consistency issues
+sold_filtered['CloseDate'] = pd.to_datetime(sold_filtered['CloseDate'])
+sold_filtered['ListingContractDate'] = pd.to_datetime(sold_filtered['ListingContractDate'])
+close_before_listing = (sold_filtered['CloseDate'] < sold_filtered['ListingContractDate']).sum()
+print(f"\n--- Date Consistency ---")
+print(f"Records where CloseDate before ListingContractDate: {close_before_listing}")
+
+# 6. Counties with highest median prices
+print("\n--- Top 10 Counties by Median ClosePrice ---")
+print(sold_filtered.groupby('CountyOrParish')['ClosePrice']
+      .median()
+      .sort_values(ascending=False)
+      .head(10)
+      .apply(lambda x: f"${x:,.0f}"))
 
 # Save
 os.makedirs('data', exist_ok=True)
