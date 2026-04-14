@@ -10,13 +10,16 @@ listings = pd.read_csv('data/listings_combined_residential.csv')
 print(sold.columns.tolist())
 print(sold.head())
 
+print(listings.columns.tolist())
+print(listings.head())
+
 # Check property categories (should only be Residential since already filtered)
 print(sold['PropertyType'].unique())
 print(listings['PropertyType'].unique())
 
 # Validate completeness
 print(sold.isnull().sum())
-print(f"{listings.isnull().sum()}\n")
+print(f"\n{listings.isnull().sum()}\n")
 
 # Shape
 print(f"Sold shape: {sold.shape}")

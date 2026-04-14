@@ -24,3 +24,16 @@ issue to address in the cleaning phase.
 San Mateo ($1.7M), Santa Clara ($1.6M), and Santa Cruz ($1.2M) are the top legitimate counties. Del Norte ($2.49M) and
 "Other County" ($2.46M) rank highest but likely reflect data quality issues given their small sample sizes and unusual
 values.
+
+Obvious data quality issues:
+
+DaysOnMarket min of -288 — negative days on market is impossible, needs to be dropped
+ClosePrice min of 0 — a home that sold for $0
+LivingArea max of 17 million sqft — clear data entry error
+LotSizeAcres max of 781,069 acres — same issue
+BathroomsTotalInteger max of 2,208 in listings — obviously wrong
+YearBuilt min of 1776 is suspicious, max of 2028 is in the future
+
+General observations:
+Prices are heavily right-skewed — median ClosePrice is $820k but mean is $1.18M, pulled up by luxury outliers
+IQR outlier rates are high across the board (7-16%), have to decide how aggressively to filter
