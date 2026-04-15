@@ -42,6 +42,7 @@ sold_with_rates[
 ].head()
 )
 
+# Save
 sold_with_rates.to_csv('data/sold_with_rates.csv', index=False)
 listings_with_rates.to_csv('data/listings_with_rates.csv', index=False)
 print()
