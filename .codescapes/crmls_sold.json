@@ -1,0 +1,82 @@
+{
+  "sourceFile": "crmls_sold.py",
+  "parsedAt": "2026-04-23T00:41:26.625Z",
+  "classes": [
+    {
+      "Classname": "<crmls_sold>",
+      "Methods": [
+        {
+          "name": "<module_code_1>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_2>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_3>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_4>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_5>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        }
+      ],
+      "Loc": 146,
+      "Type": "module",
+      "Extends": null,
+      "Implements": [
+        "csv",
+        "requests",
+        "datetime"
+      ],
+      "Fields": [
+        {
+          "name": "url",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "auth_endpoint",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "response",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "token",
+          "type": "unknown",
+          "modifiers": []
+        }
+      ],
+      "Constructors": []
+    }
+  ]
+}
