@@ -204,3 +204,139 @@ print(sold_with_rates[['CloseDate', 'year_month', 'ClosePrice', 'rate_30yr_fixed
 # Save
 sold_with_rates.to_csv('data/sold_with_rates.csv', index=False)
 print("\nSold with rates file saved!")
+
+# ── 10. Data Cleaning ─────────────────────────────────────────────────────────
+
+print(f"\nRows before cleaning: {len(sold_with_rates)}")
+print(f"Columns before cleaning: {len(sold_with_rates.columns)}")
+
+cleaning = sold_with_rates.copy()
+
+# ── 10a. Convert Date Fields to Datetime ──────────────────────────────────────
+
+date_fields = ['CloseDate', 'ListingContractDate', 'PurchaseContractDate', 'ContractStatusChangeDate']
+
+for col in date_fields:
+    if col in cleaning.columns:
+        cleaning[col] = pd.to_datetime(cleaning[col], errors='coerce')
+
+print("\n--- Date Fields Converted to Datetime ---")
+print(cleaning[date_fields].dtypes)
+
+# ── 10b. Remove Unnecessary or Redundant Columns ─────────────────────────────
+
+cols_before = len(cleaning.columns)
+
+cols_to_drop = []
+
+# year_month was a helper column for the mortgage rate merge, not needed for analysis
+if 'year_month' in cleaning.columns:
+    cols_to_drop.append('year_month')
+
+# above_list is a derived boolean we created during EDA, ClosePrice/ListPrice already in dataset
+if 'above_list' in cleaning.columns:
+    cols_to_drop.append('above_list')
+
+cleaning = cleaning.drop(columns=cols_to_drop)
+
+print(f"\n--- Columns Dropped (Redundant/Helper) ---")
+for col in cols_to_drop:
+    print(f"  {col}")
+print(f"\nColumns before: {cols_before} | after: {len(cleaning.columns)}")
+
+# ── 10c. Ensure Numeric Fields Are Properly Typed ─────────────────────────────
+
+numeric_fields = [
+    'ClosePrice', 'ListPrice', 'OriginalListPrice', 'LivingArea',
+    'LotSizeAcres', 'BedroomsTotal', 'BathroomsTotalInteger',
+    'DaysOnMarket', 'YearBuilt', 'Latitude', 'Longitude'
+]
+
+for col in numeric_fields:
+    if col in cleaning.columns:
+        cleaning[col] = pd.to_numeric(cleaning[col], errors='coerce')
+
+print("\n--- Numeric Fields dtype check ---")
+print(cleaning[numeric_fields].dtypes)
+
+# ── 10d. Remove / Flag Invalid Numeric Values ─────────────────────────────────
+
+rows_before = len(cleaning)
+
+# ClosePrice: $0 is not a valid sale
+invalid_close_price = cleaning['ClosePrice'] <= 0
+print(f"\nClosePrice <= 0: {invalid_close_price.sum()} rows removed")
+cleaning = cleaning[~invalid_close_price]
+
+# ListPrice: $0 or negative is not valid
+invalid_list_price = cleaning['ListPrice'] <= 0
+print(f"ListPrice <= 0: {invalid_list_price.sum()} rows removed")
+cleaning = cleaning[~invalid_list_price]
+
+# DaysOnMarket: negative is impossible
+invalid_dom = cleaning['DaysOnMarket'] < 0
+print(f"DaysOnMarket < 0: {invalid_dom.sum()} rows removed")
+cleaning = cleaning[~invalid_dom]
+
+# LivingArea: 0 sqft is not a valid home
+invalid_living = cleaning['LivingArea'] <= 0
+print(f"LivingArea <= 0: {invalid_living.sum()} rows removed")
+cleaning = cleaning[~invalid_living]
+
+# YearBuilt: before 1800 is likely a data entry error
+invalid_year = cleaning['YearBuilt'] < 1800
+print(f"YearBuilt < 1800: {invalid_year.sum()} rows removed")
+cleaning = cleaning[~invalid_year]
+
+# YearBuilt: after current year is impossible
+invalid_future_year = cleaning['YearBuilt'] > 2026
+print(f"YearBuilt > 2026: {invalid_future_year.sum()} rows removed")
+cleaning = cleaning[~invalid_future_year]
+
+# BedroomsTotal: negative is not valid
+invalid_beds = cleaning['BedroomsTotal'] < 0
+print(f"BedroomsTotal < 0: {invalid_beds.sum()} rows removed")
+cleaning = cleaning[~invalid_beds]
+
+# BathroomsTotalInteger: negative is not valid
+invalid_baths = cleaning['BathroomsTotalInteger'] < 0
+print(f"BathroomsTotalInteger < 0: {invalid_baths.sum()} rows removed")
+cleaning = cleaning[~invalid_baths]
+
+print(f"\nRows before invalid value removal: {rows_before}")
+print(f"Rows after invalid value removal: {len(cleaning)}")
+print(f"Rows removed: {rows_before - len(cleaning)}")
+
+# ── 10e. Handle Missing Values ────────────────────────────────────────────────
+
+rows_before = len(cleaning)
+
+# Drop rows missing core fields that are essential for any analysis
+core_required = ['ClosePrice', 'ListPrice', 'CloseDate', 'LivingArea']
+cleaning = cleaning.dropna(subset=core_required)
+
+print(f"\nRows dropped for missing core fields {core_required}: {rows_before - len(cleaning)}")
+print(f"Rows remaining: {len(cleaning)}")
+
+# Fill missing BedroomsTotal and BathroomsTotalInteger with median (minor missing, reasonable imputation)
+for col in ['BedroomsTotal', 'BathroomsTotalInteger']:
+    if col in cleaning.columns:
+        median_val = cleaning[col].median()
+        missing_count = cleaning[col].isnull().sum()
+        cleaning[col] = cleaning[col].fillna(median_val)
+        print(f"{col}: {missing_count} missing values filled with median ({median_val})")
+
+# All other fields: leave as NaN — dropping would lose too many rows
+# and these fields are not required for core analysis
+print("\nAll other missing fields left as NaN (not required for core analysis)")
+
+# ── 10f. Final Shape ──────────────────────────────────────────────────────────
+
+print(f"\n--- Cleaning Summary ---")
+print(f"Rows before: {len(sold_with_rates)} | Rows after: {len(cleaning)}")
+print(f"Columns before: {len(sold_with_rates.columns)} | Columns after: {len(cleaning.columns)}")
+
+# ── 10g. Save ─────────────────────────────────────────────────────────────────
+
+cleaning.to_csv('data/sold_cleaned.csv', index=False)
+print("\nSold cleaned file saved!")
