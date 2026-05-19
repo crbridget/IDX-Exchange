@@ -543,7 +543,7 @@ print("\n  Saved: data/listings_final.csv")
 print("=" * 65)
 
 
-# Week 6: Feature Engineering and Market Metrics
+# Week 6: Feature Engineering and Market Metrics (Listings)
 
 # ensure date fields are datetime
 for col in ['ListingContractDate', 'PurchaseContractDate', 'CloseDate']:
@@ -582,12 +582,11 @@ engineered_cols = [
 pd.set_option('display.max_columns', None)
 print(cleaning[engineered_cols].head(10).to_string(index=False))
 
-# Summary statistics by PropertyType and PropertySubType
+# Segment: PropertyType and PropertySubType
 prop_summary = (
     cleaning
     .groupby(['PropertyType', 'PropertySubType'], observed=True)
     .agg(
-        avg_list_price     = ('ListPrice',     'mean'),
         median_list_price  = ('ListPrice',     'median'),
         avg_price_per_sqft = ('price_per_sqft','mean'),
         avg_price_ratio    = ('price_ratio',   'mean'),
@@ -597,15 +596,15 @@ prop_summary = (
     .reset_index()
     .sort_values('count', ascending=False)
 )
-print(prop_summary.to_string(index=False))
+print("\nSegment: PropertyType and PropertySubType")
+print(prop_summary.head(10).to_string(index=False))
 prop_summary.to_csv('data/listings_property_type_summary.csv', index=False)
 
-# Summary statistics by CountyOrParish and MLSAreaMajor
+# Segment: CountyOrParish and MLSAreaMajor
 geo_summary = (
     cleaning
     .groupby(['CountyOrParish', 'MLSAreaMajor'], observed=True)
     .agg(
-        avg_list_price     = ('ListPrice',     'mean'),
         median_list_price  = ('ListPrice',     'median'),
         avg_price_per_sqft = ('price_per_sqft','mean'),
         avg_price_ratio    = ('price_ratio',   'mean'),
@@ -615,72 +614,11 @@ geo_summary = (
     .reset_index()
     .sort_values('median_list_price', ascending=False)
 )
-print(geo_summary.head(20).to_string(index=False))
+print("\nSegment: CountyOrParish and MLSAreaMajor")
+print(geo_summary.head(10).to_string(index=False))
 geo_summary.to_csv('data/listings_county_mls_summary.csv', index=False)
 
-# Top 10 counties by listing volume
-print("\n--- Top 10 Counties by Listing Volume ---")
-print(
-    cleaning['CountyOrParish']
-    .value_counts()
-    .head(10)
-    .to_string()
-)
-
-# Top 10 counties by median list price
-print("\n--- Top 10 Counties by Median List Price ---")
-print(
-    cleaning.groupby('CountyOrParish')['ListPrice']
-    .median()
-    .sort_values(ascending=False)
-    .head(10)
-    .apply(lambda x: f"${x:,.0f}")
-    .to_string()
-)
-
-# Segment Analysis: Office competitive intelligence
-
-# Top listing offices by volume
-print("\n--- Top 20 Listing Offices by Volume ---")
-list_office = (
-    cleaning
-    .groupby('ListOfficeName', observed=True)
-    .agg(
-        median_list_price  = ('ListPrice',     'median'),
-        avg_price_per_sqft = ('price_per_sqft','mean'),
-        avg_price_ratio    = ('price_ratio',   'mean'),
-        avg_dom            = ('days_on_market','mean'),
-        count              = ('ListPrice',     'count'),
-    )
-    .sort_values('count', ascending=False)
-)
-print(list_office.head(20).to_string())
-
-# Top listing offices by median list price (min 10 listings)
-print("\n--- Top 10 Listing Offices by Median List Price (min 10 listings) ---")
-print(
-    list_office[list_office['count'] >= 10]
-    .sort_values('median_list_price', ascending=False)
-    .head(10)[['median_list_price', 'count']]
-    .to_string()
-)
-
-# Top buyer offices by volume
-print("\n--- Top 20 Buyer Offices by Volume ---")
-buyer_office = (
-    cleaning
-    .groupby('BuyerOfficeName', observed=True)
-    .agg(
-        median_list_price  = ('ListPrice',     'median'),
-        avg_price_per_sqft = ('price_per_sqft','mean'),
-        avg_price_ratio    = ('price_ratio',   'mean'),
-        avg_dom            = ('days_on_market','mean'),
-        count              = ('ListPrice',     'count'),
-    )
-    .sort_values('count', ascending=False)
-)
-print(buyer_office.head(20).to_string())
-
+# Segment: ListOfficeName and BuyerOfficeName
 office_summary = (
     cleaning
     .groupby(['ListOfficeName', 'BuyerOfficeName'], observed=True)
@@ -693,59 +631,13 @@ office_summary = (
     .reset_index()
     .sort_values('count', ascending=False)
 )
+print("\nSegment: ListOfficeName and BuyerOfficeName")
+print(office_summary.head(10).to_string(index=False))
 office_summary.to_csv('data/listings_office_summary.csv', index=False)
-
-# Time-Based Analysis
-# Median list price by year
-print("\n--- Median List Price by Year ---")
-print(
-    cleaning.groupby('year')['ListPrice']
-    .median()
-    .apply(lambda x: f"${x:,.0f}")
-    .to_string()
-)
-
-# Median price per sqft by year and county (top 10 counties by volume)
-top_counties = cleaning['CountyOrParish'].value_counts().head(10).index
-yearly_county = (
-    cleaning[cleaning['CountyOrParish'].isin(top_counties)]
-    .groupby(['year', 'CountyOrParish'])['price_per_sqft']
-    .median()
-    .unstack()
-)
-print("\n--- Median Price per Sqft by Year (Top 10 Counties) ---")
-print(yearly_county.to_string())
-
-# Median price ratio by year and property subtype (sold listings only)
-yearly_ratio = (
-    cleaning
-    .groupby(['year', 'PropertySubType'], observed=True)['price_ratio']
-    .median()
-    .unstack()
-)
-print("\n--- Median Price Ratio by Year and PropertySubType (Sold Listings Only) ---")
-print(yearly_ratio.to_string())
-
-# summary stats
-print("\n" + "=" * 65)
-print("Quick Summary Statistics")
-print("=" * 65)
-
-print(f"""
-  Total listings        : {len(cleaning):,}
-  Total list volume     : ${cleaning['ListPrice'].sum():,.0f}
-  Median list price     : ${cleaning['ListPrice'].median():,.0f}
-  Mean list price       : ${cleaning['ListPrice'].mean():,.0f}
-  Median price per sqft : ${cleaning['price_per_sqft'].median():,.0f}
-  Median price ratio    : {cleaning['price_ratio'].median():.3f}
-  Median days on market : {cleaning['days_on_market'].median():.0f} days
-  Median contract->close: {cleaning['contract_to_close'].median():.0f} days
-  Date range            : {cleaning['ListingContractDate'].min().date()} to {cleaning['ListingContractDate'].max().date()}
-""")
 
 # Save
 cleaning.to_csv('data/listings_features.csv', index=False)
-print("Features saved, data/listings_features.csv")
+print("\nFeatures saved, data/listings_features.csv")
 
 # Week 7: Outlier Detection and Data Quality (Listings)
 
