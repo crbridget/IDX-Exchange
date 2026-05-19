@@ -649,10 +649,10 @@ before_medians = {field: df[field].median() for field in ["ListPrice", "LivingAr
 
 print(f"\nRows entering Week 7 (Listings): {before_size:,}")
 
-# flag extreme values using IQR + percentiles
-# ListPrice    - 99th percentile as hard upper bound (CA has very high prices)
-# LivingArea   - 99th percentile as hard upper bound; IQR too aggressive for large but legitimate homes (flagged 4.4% at 1.5x)
-# DaysOnMarket - looser 3.0 multiplier (long market times are real, not errors)
+# flag extreme values using IQR + percentiles side by side to guide decisions
+# ListPrice    - IQR 1.5x upper too aggressive for CA luxury market; 99th percentile used instead
+# LivingArea   - IQR 1.5x upper flags large but legitimate homes; 99th percentile used instead
+# DaysOnMarket - long market times are real signal not errors; 3.0x multiplier used, stricter than 99th percentile
 
 iqr_config = {
     "ListPrice":    {"multiplier": 1.5, "use_percentile_upper": True},
@@ -661,26 +661,32 @@ iqr_config = {
 }
 
 for field, config in iqr_config.items():
-    q1    = df[field].quantile(0.25)
-    q3    = df[field].quantile(0.75)
-    iqr   = q3 - q1
-    lower = q1 - config['multiplier'] * iqr
-    p99   = df[field].quantile(0.99)
-    p01   = df[field].quantile(0.01)
+    q1  = df[field].quantile(0.25)
+    q3  = df[field].quantile(0.75)
+    iqr = q3 - q1
+    p01 = df[field].quantile(0.01)
+    p99 = df[field].quantile(0.99)
+
+    lower     = q1 - config['multiplier'] * iqr
+    iqr_upper = q3 + config['multiplier'] * iqr
 
     if config['use_percentile_upper']:
-        upper = p99
+        upper    = p99
+        decision = "99th percentile used as upper bound — IQR too aggressive for this field"
     else:
-        upper = q3 + config["multiplier"] * iqr
+        upper    = iqr_upper
+        decision = "IQR used — stricter than 99th percentile, appropriate for this field"
 
     df[f"{field}_outlier"] = ~df[field].between(lower, upper)
     n_flagged = df[f"{field}_outlier"].sum()
 
     print(f"\n  {field}")
     print(f"    IQR multiplier : {config['multiplier']}  |  upper bound: {'99th percentile' if config['use_percentile_upper'] else 'IQR'}")
-    print(f"    IQR bounds   : lower={lower:,.2f}  upper={upper:,.2f}")
-    print(f"    Percentiles  : 1st={p01:,.2f}  99th={p99:,.2f}")
-    print(f"    Flagged      : {n_flagged:,} records ({n_flagged / len(df) * 100:.1f}%)")
+    print(f"    IQR bounds     : lower={lower:,.2f}  upper={iqr_upper:,.2f}")
+    print(f"    Percentiles    : 1st={p01:,.2f}  99th={p99:,.2f}")
+    print(f"    Decision       : {decision}")
+    print(f"    Threshold used : lower={lower:,.2f}  upper={upper:,.2f}")
+    print(f"    Flagged        : {n_flagged:,} records ({n_flagged / len(df) * 100:.1f}%)")
 print()
 
 # apply business rules as additional flag columns
@@ -709,11 +715,11 @@ df['invalid_price_ratio_flag'] = (
 print(f"  invalid_price_ratio_flag   : {df['invalid_price_ratio_flag'].sum():,} records (price_ratio < 0.5 or > 2.0, sold listings only)")
 
 
-# save full flagged dataset
+# save full flagged dataset — nothing deleted, all records preserved
 df.to_csv('data/listings_flagged.csv', index=False)
 print(f"\nFlagged dataset saved, data/listings_flagged.csv  ({len(df):,} rows)")
 
-# build clean filtered dataset
+# build separate clean filtered dataset for analysis
 # exclude rows flagged by any IQR or business rule flag
 iqr_flag_cols      = [f"{field}_outlier" for field in iqr_config.keys()]
 biz_rule_flag_cols = [
@@ -729,7 +735,6 @@ clean_df    = df[~is_any_flag].copy()
 
 clean_df.to_csv('data/listings_clean.csv', index=False)
 print(f"Clean dataset saved, data/listings_clean.csv  ({len(clean_df):,} rows)")
-
 
 
 # print comparison

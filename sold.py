@@ -641,44 +641,47 @@ before_medians = {field: df[field].median() for field in ["ClosePrice", "LivingA
 
 print(f"\nRows entering Week 7: {before_size:,}")
 
-# flag extreme values using IQR + percentiles
-# ClosePrice - 99th percentile as hard upper bound (CA has very high prices)
-# Living Are - 99th percentile as hard upper bound; IQR too aggressive for large but legitimate homes (flagged 4.4% at 1.5x)
-# DaysOnMarket - looser 3.0 multiplier (long market times are real, not errors)
+# flag extreme values using IQR + percentiles side by side to guide decisions
+# ClosePrice   - IQR 1.5x upper ($2.4M) too aggressive for CA luxury market; 99th percentile ($5.5M) used instead
+# LivingArea   - IQR 1.5x upper (3,673 sqft) flags large but legitimate homes; 99th percentile used instead
+# DaysOnMarket - long market times are real signal not errors; 3.0x multiplier used, stricter than 99th percentile
 
 iqr_config = {
-        "ClosePrice":   {"multiplier": 1.5, "use_percentile_upper": True},
-        "LivingArea":   {"multiplier": 1.5, "use_percentile_upper": True},
-        "DaysOnMarket": {"multiplier": 3.0, "use_percentile_upper": False},
+    "ClosePrice":   {"multiplier": 1.5, "use_percentile_upper": True},
+    "LivingArea":   {"multiplier": 1.5, "use_percentile_upper": True},
+    "DaysOnMarket": {"multiplier": 3.0, "use_percentile_upper": False},
 }
 
 for field, config in iqr_config.items():
-    q1 = df[field].quantile(0.25)
-    q3 = df[field].quantile(0.75)
+    q1  = df[field].quantile(0.25)
+    q3  = df[field].quantile(0.75)
     iqr = q3 - q1
-    lower = q1 - config['multiplier'] * iqr
-    p99 = df[field].quantile(0.99)
     p01 = df[field].quantile(0.01)
+    p99 = df[field].quantile(0.99)
 
-    # ClosePrice: use 99th percentile as upper bound instead of IQR
-    # IQR is too agressive for skewed CA home prices
+    lower    = q1 - config['multiplier'] * iqr
+    iqr_upper = q3 + config['multiplier'] * iqr
+
     if config['use_percentile_upper']:
-        upper = p99
+        upper    = p99
+        decision = "99th percentile used as upper bound — IQR too aggressive for this field"
     else:
-        upper = q3 + config["multiplier"] * iqr
-
+        upper    = iqr_upper
+        decision = "IQR used — stricter than 99th percentile, appropriate for this field"
 
     df[f"{field}_outlier"] = ~df[field].between(lower, upper)
     n_flagged = df[f"{field}_outlier"].sum()
 
     print(f"\n  {field}")
     print(f"    IQR multiplier : {config['multiplier']}  |  upper bound: {'99th percentile' if config['use_percentile_upper'] else 'IQR'}")
-    print(f"    IQR bounds   : lower={lower:,.2f}  upper={upper:,.2f}")
-    print(f"    Percentiles  : 1st={p01:,.2f}  99th={p99:,.2f}")
-    print(f"    Flagged      : {n_flagged:,} records ({n_flagged / len(df) * 100:.1f}%)")
+    print(f"    IQR bounds     : lower={lower:,.2f}  upper={iqr_upper:,.2f}")
+    print(f"    Percentiles    : 1st={p01:,.2f}  99th={p99:,.2f}")
+    print(f"    Decision       : {decision}")
+    print(f"    Threshold used : lower={lower:,.2f}  upper={upper:,.2f}")
+    print(f"    Flagged        : {n_flagged:,} records ({n_flagged / len(df) * 100:.1f}%)")
 print()
 
-# Apply business rules as additional flag columns
+# apply business rules as additional flag columns
 
 # ClosePrice <= 0: not a valid sale
 df['invalid_close_price_flag'] = df['ClosePrice'] <= 0
@@ -692,12 +695,12 @@ print(f"  invalid_living_area_flag  : {df['invalid_living_area_flag'].sum():,} r
 df['invalid_dom_flag'] = df['DaysOnMarket'] < 0
 print(f"  invalid_dom_flag          : {df['invalid_dom_flag'].sum():,} records (DaysOnMarket < 0)")
 
-# price_per_sqft below $10 or above $10,000 
+# price_per_sqft below $10 or above $10,000
 df['invalid_price_per_sqft_flag'] = (
     df['price_per_sqft'] < 10) | (df['price_per_sqft'] > 10000
 )
 print(f"  invalid_price_per_sqft_flag: {df['invalid_price_per_sqft_flag'].sum():,} records (price_per_sqft < $10 or > $10,000)")
- 
+
 # price_ratio below 0.5 or above 2.0
 # close price was less than half or more than double the original list price, extremely rare and likely an error
 df['invalid_price_ratio_flag'] = (
@@ -706,11 +709,11 @@ df['invalid_price_ratio_flag'] = (
 print(f"  invalid_price_ratio_flag  : {df['invalid_price_ratio_flag'].sum():,} records (price_ratio < 0.5 or > 2.0)")
 
 
-# save full flagged dataset
+# save full flagged dataset — nothing deleted, all records preserved
 df.to_csv('data/sold_flagged.csv', index=False)
 print(f"\nFlagged dataset saved, data/sold_flagged.csv  ({len(df):,} rows)")
 
-# build clean filtered dataset
+# build separate clean filtered dataset for analysis
 # exclude rows flagged by any IQR or business rule flag
 iqr_flag_cols      = [f"{field}_outlier" for field in iqr_config.keys()]
 biz_rule_flag_cols = [
@@ -728,7 +731,7 @@ clean_df.to_csv('data/sold_clean.csv', index=False)
 print(f"Clean dataset saved, data/sold_clean.csv  ({len(clean_df):,} rows)")
 
 
-# Print comparison
+# print comparison
 
 after_size = len(clean_df)
 removed    = before_size - after_size
@@ -740,16 +743,14 @@ Dataset Size
 Before : {before_size:,} records
 After  : {after_size:,} records
 Removed: {removed:,} ({pct:.1f}%)
- 
+
 Median Values Before vs After
 ------------------------------""")
 
 for field in iqr_config.keys():
-    b = before_medians[field]
-    a = clean_df[field].median()
+    b         = before_medians[field]
+    a         = clean_df[field].median()
     change    = a - b
     direction = "up" if change > 0 else "down"
     print(f"  {field:<20}  Before: {b:>12,.2f}   After: {a:>12,.2f}   ({direction} {abs(change):,.2f})")
-
-
 
