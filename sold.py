@@ -304,7 +304,7 @@ numeric_fields = [
     'LotSizeAcres', 'BedroomsTotal', 'BathroomsTotalInteger',
     'DaysOnMarket', 'YearBuilt', 'Latitude', 'Longitude'
 ]
-
+# every column stored as number
 for col in numeric_fields:
     if col in cleaning.columns:
         cleaning[col] = pd.to_numeric(cleaning[col], errors='coerce')
@@ -356,27 +356,6 @@ cleaning = cleaning[~invalid_beds]
 invalid_baths = cleaning['BathroomsTotalInteger'] < 0
 print(f"BathroomsTotalInteger < 0: {invalid_baths.sum()} rows removed")
 cleaning = cleaning[~invalid_baths]
-
-# Null out price_ratio and close_to_og_list where OriginalListPrice <= 0
-# These fields meaningless when denominator is 0 and produce inf values
-if 'OriginalListPrice' in cleaning.columns:
-    bad_og_price = cleaning['OriginalListPrice'] <= 0
-    for ratio_col in ['price_ratio', 'close_to_og_list']:
-        if ratio_col in cleaning.columns:
-            cleaning.loc[bad_og_price, ratio_col] = None
-    print(f"\nNulled price_ratio and close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
- 
-# Null out negative days_on_market and contract_to_close (engineered fields)
-# Negative values mean PurchaseContractDate came before ListingContractDate — a date ordering violation
-if 'days_on_market' in cleaning.columns:
-    neg_dom = cleaning['days_on_market'] < 0
-    cleaning.loc[neg_dom, 'days_on_market'] = None
-    print(f"Nulled negative days_on_market (date ordering violation): {neg_dom.sum()} rows")
- 
-if 'contract_to_close' in cleaning.columns:
-    neg_ctc = cleaning['contract_to_close'] < 0
-    cleaning.loc[neg_ctc, 'contract_to_close'] = None
-    print(f"Nulled negative contract_to_close (date ordering violation): {neg_ctc.sum()} rows")
 
 print(f"\nRows before invalid value removal: {rows_before}")
 print(f"Rows after invalid value removal: {len(cleaning)}")
@@ -443,6 +422,7 @@ if 'StateOrProvince' in cleaning.columns:
 
 # Week 4: Round Coordinate Precision
 
+# round coords to 6 decimal places
 for col in ['Latitude', 'Longitude']:
     if col in cleaning.columns:
         cleaning[col] = cleaning[col].round(6)
