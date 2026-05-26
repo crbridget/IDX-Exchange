@@ -1,0 +1,2496 @@
+{
+  "sourceFile": "sold.py",
+  "parsedAt": "2026-05-26T20:47:21.698Z",
+  "classes": [
+    {
+      "Classname": "<sold>",
+      "Methods": [
+        {
+          "name": "missing_summary",
+          "parameters": [
+            "unknown",
+            "unknown"
+          ],
+          "returnType": "None",
+          "modifiers": []
+        },
+        {
+          "name": "<module_code_1>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_2>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_3>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_4>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_5>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_6>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_7>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_8>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_9>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_10>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_11>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_12>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_13>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_14>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_15>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_16>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_17>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_18>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_19>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_20>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_21>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_22>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_23>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_24>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_25>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_26>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_27>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_28>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_29>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_30>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_31>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_32>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_33>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_34>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_35>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_36>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_37>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_38>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_39>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_40>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_41>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_42>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_43>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_44>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_45>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_46>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_47>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_48>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_49>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_50>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_51>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_52>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_53>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_54>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_55>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_56>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_57>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_58>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_59>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_60>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_61>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_62>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_63>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_64>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_65>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_66>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_67>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_68>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_69>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_70>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_71>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_72>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_73>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_74>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_75>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_76>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_77>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_78>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_79>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_80>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        },
+        {
+          "name": "<module_code_81>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_82>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_83>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_84>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_85>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_86>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_87>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_88>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_89>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_90>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_91>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_92>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_93>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_94>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_95>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_96>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_97>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_98>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_99>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_100>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_101>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_102>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_103>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_104>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        },
+        {
+          "name": "<module_code_105>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_106>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_107>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        },
+        {
+          "name": "<module_code_108>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        },
+        {
+          "name": "<module_code_109>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_110>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_111>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_112>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_113>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_114>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_115>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_116>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_117>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_118>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_119>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_120>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_121>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_122>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_123>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_124>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_125>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        },
+        {
+          "name": "<module_code_126>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_127>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_128>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        },
+        {
+          "name": "<module_code_129>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_130>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_131>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_132>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_133>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_134>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_135>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_136>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_137>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_138>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_139>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_140>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_141>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_142>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_143>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_144>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_145>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_146>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_147>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_148>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        },
+        {
+          "name": "<module_code_149>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_150>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_151>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "if_statement"
+          ]
+        },
+        {
+          "name": "<module_code_152>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_153>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_154>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_155>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_156>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_157>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_158>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_159>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_160>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_161>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_162>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_163>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_164>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_165>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_166>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_167>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_168>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_169>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_170>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_171>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_172>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_173>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_174>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_175>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_176>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_177>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_178>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_179>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_180>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_181>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_182>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_183>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_184>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_185>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_186>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_187>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_188>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_189>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_190>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_191>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_192>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_193>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_194>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_195>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_196>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_197>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_198>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_199>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_200>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_201>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_202>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_203>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_204>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_205>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_206>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_207>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_208>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_209>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_210>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_211>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_212>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_213>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_214>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_215>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_216>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_217>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_218>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_219>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_220>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_221>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_222>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_223>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_224>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_225>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_226>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_227>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_228>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_229>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_230>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_231>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_232>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_233>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_234>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_235>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_236>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_237>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_238>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        },
+        {
+          "name": "<module_code_239>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_240>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_241>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_242>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_243>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_244>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_245>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_246>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_247>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_248>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_249>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_250>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_251>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_252>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_253>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_254>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_255>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_256>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_257>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_258>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_259>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "comment"
+          ]
+        },
+        {
+          "name": "<module_code_260>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "expression_statement"
+          ]
+        },
+        {
+          "name": "<module_code_261>",
+          "parameters": [],
+          "returnType": "None",
+          "modifiers": [
+            "for_statement"
+          ]
+        }
+      ],
+      "Loc": 840,
+      "Type": "module",
+      "Extends": null,
+      "Implements": [
+        "pandas",
+        "matplotlib",
+        "numpy",
+        "glob",
+        "os"
+      ],
+      "Fields": [
+        {
+          "name": "sold_files",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "sold_dfs",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "sold_raw",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "sold",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "sold_flagged",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "core_fields",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "to_drop",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "sold_filtered",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "above",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "below",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "total",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "close_before_listing",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "numeric_fields",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "url",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "mortgage",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "mortgage_monthly",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "sold_with_rates",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "date_fields",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cols_before",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cols_to_drop",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "existing_drops",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "rows_before",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "numeric_fields",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "rows_before",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "invalid_close_price",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "invalid_list_price",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "invalid_dom",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "invalid_living",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "invalid_year",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "invalid_future_year",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "invalid_beds",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "invalid_baths",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "rows_before",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "core_required",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "cleaning",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "count",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "pct",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "count",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "pct",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "count",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "pct",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "count",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "pct",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "valid_coords",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "count",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "pct",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "count",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "pct",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "clean_geo_pct",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "clean_date_pct",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "engineered_cols",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "prop_summary",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "geo_summary",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "office_summary",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "df",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "before_size",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "before_medians",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "iqr_config",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "iqr_flag_cols",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "biz_rule_flag_cols",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "is_any_flag",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "clean_df",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "after_size",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "removed",
+          "type": "unknown",
+          "modifiers": []
+        },
+        {
+          "name": "pct",
+          "type": "unknown",
+          "modifiers": []
+        }
+      ],
+      "Constructors": []
+    }
+  ]
+}

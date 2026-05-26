@@ -232,7 +232,7 @@ for col in date_fields:
         cleaning[col] = pd.to_datetime(cleaning[col], errors='coerce')
 
 print("\n--- Date Fields Converted to Datetime ---")
-print(cleaning[date_fields].dtypes)
+print(cleaning[[c for c in date_fields if c in cleaning.columns]].dtypes)
 
 
 # Week 4: Remove Unnecessary or Redundant Columns
@@ -253,9 +253,8 @@ cols_to_drop = {
     'lonfilled':                'duplicate of Longitude, filled version from prior processing step',
 
     # Agent metadata (not useful for market analysis)
-    'ListAgentFirstName':       'agent metadata, not relevant to market analysis',
-    'ListAgentLastName':        'agent metadata, not relevant to market analysis',
-    'ListAgentFullName':        'agent metadata, not relevant to market analysis',
+    'ListAgentFirstName':       'agent metadata, not relevant to market analysis (kept agent fullname)',
+    'ListAgentLastName':        'agent metadata, not relevant to market analysis (kept agent fullname)',
     'ListAgentEmail':           'agent metadata, not relevant to market analysis',
     'ListAgentAOR':             'agent metadata, not relevant to market analysis',
     'CoListAgentFirstName':     'agent metadata, not relevant to market analysis',
@@ -281,6 +280,22 @@ for col, reason in existing_drops.items():
     print(f"  {col}: {reason}")
 print(f"\nColumns before: {cols_before} | after: {len(cleaning.columns)}")
 
+# Week 4: Deduplicate on ListingKey
+# same listings can appear on multiple monthly files
+# keep most recent record per ListingKey based on CloseDate
+
+rows_before = len(cleaning)
+
+if 'ListingKey' in cleaning.columns:
+    cleaning = (
+            cleaning
+            .sort_values('CloseDate', ascending=False)
+            .drop_duplicates(subset='ListingKey', keep='first')
+        )
+    print(f"\n--- Deduplicationn on ListingKey ---")
+    print(f"Rows before: {rows_before} | after: {len(cleaning)} | removed: {rows_before - len(cleaning)}")
+else:
+    print("\nListingKey not found — skipping deduplication")
 
 # Week 4: Ensure Numeric Fields Are Properly Typed
 
@@ -295,7 +310,7 @@ for col in numeric_fields:
         cleaning[col] = pd.to_numeric(cleaning[col], errors='coerce')
 
 print("\n--- Numeric Fields dtype check ---")
-print(cleaning[numeric_fields].dtypes)
+print(cleaning[[c for c in numeric_fields if c in cleaning.columns]].dtypes)
 
 
 # Week 4: Remove / Flag Invalid Numeric Values
@@ -342,6 +357,27 @@ invalid_baths = cleaning['BathroomsTotalInteger'] < 0
 print(f"BathroomsTotalInteger < 0: {invalid_baths.sum()} rows removed")
 cleaning = cleaning[~invalid_baths]
 
+# Null out price_ratio and close_to_og_list where OriginalListPrice <= 0
+# These fields meaningless when denominator is 0 and produce inf values
+if 'OriginalListPrice' in cleaning.columns:
+    bad_og_price = cleaning['OriginalListPrice'] <= 0
+    for ratio_col in ['price_ratio', 'close_to_og_list']:
+        if ratio_col in cleaning.columns:
+            cleaning.loc[bad_og_price, ratio_col] = None
+    print(f"\nNulled price_ratio and close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
+ 
+# Null out negative days_on_market and contract_to_close (engineered fields)
+# Negative values mean PurchaseContractDate came before ListingContractDate — a date ordering violation
+if 'days_on_market' in cleaning.columns:
+    neg_dom = cleaning['days_on_market'] < 0
+    cleaning.loc[neg_dom, 'days_on_market'] = None
+    print(f"Nulled negative days_on_market (date ordering violation): {neg_dom.sum()} rows")
+ 
+if 'contract_to_close' in cleaning.columns:
+    neg_ctc = cleaning['contract_to_close'] < 0
+    cleaning.loc[neg_ctc, 'contract_to_close'] = None
+    print(f"Nulled negative contract_to_close (date ordering violation): {neg_ctc.sum()} rows")
+
 print(f"\nRows before invalid value removal: {rows_before}")
 print(f"Rows after invalid value removal: {len(cleaning)}")
 print(f"Rows removed: {rows_before - len(cleaning)}")
@@ -367,6 +403,53 @@ for col in ['BedroomsTotal', 'BathroomsTotalInteger']:
         print(f"{col}: {missing_count} missing values filled with median ({median_val})")
 
 print("\nAll other missing fields left as NaN (not required for core analysis)")
+
+# Week 4: Standardize Text Fields
+
+for col in ['City', 'CountyOrParish', 'PropertySubType', 'PropertyType', 'ListAgentFullName',
+            'ListOfficeName', 'BuyerOfficeName', 'SubdivisionName', 'MLSAreaMajor']:
+    if col in cleaning.columns:
+        cleaning[col] = cleaning[col].astype(str).str.strip().str.title()
+        cleaning[col] = cleaning[col].replace('Nan', None)
+ 
+print("\n--- Text Fields Standardized (strip + title case) ---")
+print("  City, CountyOrParish, PropertySubType, PropertyType, ListAgentFullName,")
+print("  ListOfficeName, BuyerOfficeName, SubdivisionName, MLSAreaMajor")
+
+# Week 4: Standardize PostalCode
+
+if 'PostalCode' in cleaning.columns:
+    cleaning['PostalCode'] = (
+        cleaning['PostalCode']
+        .astype(str)
+        .str.strip()
+        .str.split('.').str[0]   # remove .0 from float conversion
+        .str.zfill(5)            # zero-pad to 5 digits
+    )
+    # Flag any remaining non-5-digit zips
+    invalid_zip = ~cleaning['PostalCode'].str.match(r'^\d{5}$')
+    print(f"\n--- PostalCode Standardized to 5-digit string ---")
+    print(f"  Invalid/non-5-digit PostalCodes found: {invalid_zip.sum()}")
+
+# Week 4: Validate StateOrProvince
+# all records should be CA
+
+if 'StateOrProvince' in cleaning.columns:
+    non_ca = cleaning['StateOrProvince'].str.upper().str.strip() != 'CA'
+    print(f"\n--- StateOrProvince Check ---")
+    print(f"  Non-CA records: {non_ca.sum()}")
+    if non_ca.sum() > 0:
+        print(cleaning.loc[non_ca, 'StateOrProvince'].value_counts())
+
+# Week 4: Round Coordinate Precision
+
+for col in ['Latitude', 'Longitude']:
+    if col in cleaning.columns:
+        cleaning[col] = cleaning[col].round(6)
+ 
+print("\n--- Coordinates Rounded to 6 Decimal Places ---")
+
+# Week 4: Final Shape & Save
 
 print(f"\n--- Week 4 Cleaning Summary ---")
 print(f"Rows before: {len(sold_with_rates)} | Rows after: {len(cleaning)}")

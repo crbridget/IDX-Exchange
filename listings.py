@@ -251,10 +251,10 @@ cols_to_drop = {
     'ListAgentFirstName.1':     'duplicate of ListAgentFirstName',
     'ListAgentLastName.1':      'duplicate of ListAgentLastName',
 
-    # Agent metadata (not useful for market analysis)
-    'ListAgentFirstName':       'agent metadata, not relevant to market analysis',
-    'ListAgentLastName':        'agent metadata, not relevant to market analysis',
-    'ListAgentFullName':        'agent metadata, not relevant to market analysis',
+    # Agent metadata — keeping ListAgentFullName for Top 100 agents dashboard
+    # 'ListAgentFullName' is intentionally NOT dropped — required for Tableau competitive dashboard
+    'ListAgentFirstName':       'agent metadata — ListAgentFullName kept instead for dashboard use',
+    'ListAgentLastName':        'agent metadata — ListAgentFullName kept instead for dashboard use',
     'ListAgentEmail':           'agent metadata, not relevant to market analysis',
     'ListAgentAOR':             'agent metadata, not relevant to market analysis',
     'CoListAgentFirstName':     'agent metadata, not relevant to market analysis',
@@ -276,6 +276,24 @@ print(f"\n--- Columns Dropped (Redundant/Helper) ---")
 for col, reason in existing_drops.items():
     print(f"  {col}: {reason}")
 print(f"\nColumns before: {cols_before} | after: {len(cleaning.columns)}")
+
+
+# Week 4: Deduplicate on ListingKey
+# same listings can appear in multiple monthly files
+# keep most recent record per ListingKey based on ListingContractDate
+
+rows_before = len(cleaning)
+
+if 'ListingKey' in cleaning.columns:
+    cleaning = (
+        cleaning
+        .sort_values('ListingContractDate', ascending=False)
+        .drop_duplicates(subset='ListingKey', keep='first')
+    )
+    print(f"\n--- Deduplication on ListingKey ---")
+    print(f"Rows before: {rows_before} | after: {len(cleaning)} | removed: {rows_before - len(cleaning)}")
+else:
+    print("\nListingKey not found — skipping deduplication")
 
 
 # Week 4: Ensure Numeric Fields Are Properly Typed
@@ -333,6 +351,27 @@ invalid_baths = cleaning['BathroomsTotalInteger'] < 0
 print(f"BathroomsTotalInteger < 0: {invalid_baths.sum()} rows removed")
 cleaning = cleaning[~invalid_baths]
 
+# Null out price_ratio and close_to_og_list where OriginalListPrice <= 0
+# These fields are meaningless when denominator is 0 and produce inf values
+if 'OriginalListPrice' in cleaning.columns:
+    bad_og_price = cleaning['OriginalListPrice'] <= 0
+    for ratio_col in ['price_ratio', 'close_to_og_list']:
+        if ratio_col in cleaning.columns:
+            cleaning.loc[bad_og_price, ratio_col] = None
+    print(f"\nNulled price_ratio and close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
+
+# Null out negative days_on_market and contract_to_close (engineered fields)
+# Negative values mean PurchaseContractDate came before ListingContractDate — a date ordering violation
+if 'days_on_market' in cleaning.columns:
+    neg_dom = cleaning['days_on_market'] < 0
+    cleaning.loc[neg_dom, 'days_on_market'] = None
+    print(f"Nulled negative days_on_market (date ordering violation): {neg_dom.sum()} rows")
+
+if 'contract_to_close' in cleaning.columns:
+    neg_ctc = cleaning['contract_to_close'] < 0
+    cleaning.loc[neg_ctc, 'contract_to_close'] = None
+    print(f"Nulled negative contract_to_close (date ordering violation): {neg_ctc.sum()} rows")
+
 print(f"\nRows before invalid value removal: {rows_before}")
 print(f"Rows after invalid value removal: {len(cleaning)}")
 print(f"Rows removed: {rows_before - len(cleaning)}")
@@ -359,6 +398,57 @@ for col in ['BedroomsTotal', 'BathroomsTotalInteger']:
 
 print("\nAll other missing fields left as NaN (not required for core analysis)")
 
+
+# Week 4: Standardize Text Fields
+
+for col in ['City', 'CountyOrParish', 'PropertySubType', 'PropertyType', 'ListAgentFullName',
+            'ListOfficeName', 'BuyerOfficeName', 'SubdivisionName', 'MLSAreaMajor']:
+    if col in cleaning.columns:
+        cleaning[col] = cleaning[col].astype(str).str.strip().str.title()
+        cleaning[col] = cleaning[col].replace('Nan', None)
+
+print("\n--- Text Fields Standardized (strip + title case) ---")
+print("  City, CountyOrParish, PropertySubType, PropertyType, ListAgentFullName,")
+print("  ListOfficeName, BuyerOfficeName, SubdivisionName, MLSAreaMajor")
+
+
+# Week 4: Standardize PostalCode
+
+if 'PostalCode' in cleaning.columns:
+    cleaning['PostalCode'] = (
+        cleaning['PostalCode']
+        .astype(str)
+        .str.strip()
+        .str.split('.').str[0]   # remove .0 from float conversion
+        .str.zfill(5)            # zero-pad to 5 digits
+    )
+    invalid_zip = ~cleaning['PostalCode'].str.match(r'^\d{5}$')
+    print(f"\n--- PostalCode Standardized to 5-digit string ---")
+    print(f"  Invalid/non-5-digit PostalCodes found: {invalid_zip.sum()}")
+
+
+# Week 4: Validate StateOrProvince
+# all records should be CA
+
+if 'StateOrProvince' in cleaning.columns:
+    non_ca = cleaning['StateOrProvince'].str.upper().str.strip() != 'CA'
+    print(f"\n--- StateOrProvince Check ---")
+    print(f"  Non-CA records: {non_ca.sum()}")
+    if non_ca.sum() > 0:
+        print(cleaning.loc[non_ca, 'StateOrProvince'].value_counts())
+
+
+# Week 4: Round Coordinate Precision
+
+for col in ['Latitude', 'Longitude']:
+    if col in cleaning.columns:
+        cleaning[col] = cleaning[col].round(6)
+
+print("\n--- Coordinates Rounded to 6 Decimal Places ---")
+
+
+# Week 4: Final Shape & Save
+
 print(f"\n--- Week 4 Cleaning Summary ---")
 print(f"Rows before: {len(listings_with_rates)} | Rows after: {len(cleaning)}")
 print(f"Columns before: {len(listings_with_rates.columns)} | Columns after: {len(cleaning.columns)}")
@@ -367,13 +457,11 @@ cleaning.to_csv('data/listings_cleaned.csv', index=False)
 print("\nListings cleaned file saved!")
 
 
-# =============================================================================
 # Week 5: Date Consistency Flags
 # Rule: ListingContractDate < PurchaseContractDate < CloseDate
 # Records are FLAGGED, not dropped — analysts decide how to handle them
 # Note: many listings won't have a CloseDate (not yet sold); those rows
 # are left as False since no violation can be detected without a close date
-# =============================================================================
 
 print("\n" + "─" * 65)
 print("Week 5: Date Consistency Flags")
@@ -442,7 +530,6 @@ print(f"    - Any date ordering violation (union of both flags above)")
 # Week 5: Geographic Data Checks
 # California bounding box: Lat 32.5–42.0 | Lon -124.5 to -114.0
 
-
 print("\n" + "─" * 65)
 print("Week 5: Geographic Data Checks")
 print("─" * 65)
@@ -451,7 +538,6 @@ CA_LAT_MIN, CA_LAT_MAX =  32.5,   42.0
 CA_LON_MIN, CA_LON_MAX = -124.5, -114.0
 
 # missing_coords_flag
-# Records with null Latitude or Longitude cannot be mapped or used spatially
 cleaning['missing_coords_flag'] = (
     cleaning['Latitude'].isna() | cleaning['Longitude'].isna()
 )
@@ -461,7 +547,6 @@ print(f"\n  missing_coords_flag        : {count:,} records ({pct:.2f}%)")
 print(f"    - Latitude or Longitude is null")
 
 # zero_coords_flag
-# Zero is a sentinel placeholder written by some MLS export tools — not a valid CA location
 cleaning['zero_coords_flag'] = (
     (cleaning['Latitude']  == 0) |
     (cleaning['Longitude'] == 0)
@@ -472,7 +557,6 @@ print(f"\n  zero_coords_flag           : {count:,} records ({pct:.2f}%)")
 print(f"    - Latitude = 0 or Longitude = 0 (sentinel null value)")
 
 # positive_longitude_flag
-# All CA longitudes are negative (west of prime meridian); positive means sign was dropped
 cleaning['positive_longitude_flag'] = cleaning['Longitude'] > 0
 count = cleaning['positive_longitude_flag'].sum()
 pct   = count / len(cleaning) * 100
@@ -480,7 +564,6 @@ print(f"\n  positive_longitude_flag    : {count:,} records ({pct:.2f}%)")
 print(f"    - Longitude > 0 (California coordinates must be negative)")
 
 # out_of_state_flag
-# Coordinates outside CA bounding box; only evaluated on non-null, non-zero values
 valid_coords = (
     cleaning['Latitude'].notna()  & (cleaning['Latitude']  != 0) &
     cleaning['Longitude'].notna() & (cleaning['Longitude'] != 0)
@@ -499,7 +582,6 @@ print(f"    - Coordinates outside CA bounding box")
 print(f"       Lat [{CA_LAT_MIN}, {CA_LAT_MAX}] | Lon [{CA_LON_MIN}, {CA_LON_MAX}]")
 
 # invalid_coords_flag
-# Master geographic flag — union of all coordinate issues
 cleaning['invalid_coords_flag'] = (
     cleaning['missing_coords_flag']     |
     cleaning['zero_coords_flag']        |
@@ -512,9 +594,7 @@ print(f"\n  invalid_coords_flag        : {count:,} records ({pct:.2f}%)")
 print(f"    - Any geographic issue (union of all geo flags)")
 
 
-# =============================================================================
 # Week 5: Final Summary & Save
-# =============================================================================
 
 print("\n" + "=" * 65)
 print("Week 5: Final Summary")
@@ -571,8 +651,27 @@ cleaning['days_on_market'] = (cleaning['PurchaseContractDate'] - cleaning['Listi
 # Days from Contract to Close (NaN if not yet closed)
 cleaning['contract_to_close'] = (cleaning['CloseDate'] - cleaning['PurchaseContractDate']).dt.days
 
+# Null out price_ratio and close_to_og_list where OriginalListPrice <= 0
+if 'OriginalListPrice' in cleaning.columns:
+    bad_og_price = cleaning['OriginalListPrice'] <= 0
+    for ratio_col in ['price_ratio', 'close_to_og_list']:
+        if ratio_col in cleaning.columns:
+            cleaning.loc[bad_og_price, ratio_col] = None
+    print(f"\nNulled price_ratio and close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
+
+# Null out negative days_on_market and contract_to_close
+if 'days_on_market' in cleaning.columns:
+    neg_dom = cleaning['days_on_market'] < 0
+    cleaning.loc[neg_dom, 'days_on_market'] = None
+    print(f"Nulled negative days_on_market (date ordering violation): {neg_dom.sum()} rows")
+
+if 'contract_to_close' in cleaning.columns:
+    neg_ctc = cleaning['contract_to_close'] < 0
+    cleaning.loc[neg_ctc, 'contract_to_close'] = None
+    print(f"Nulled negative contract_to_close (date ordering violation): {neg_ctc.sum()} rows")
+
 # Sample output showing all engineered columns populated
-print("Engineered Metrics Sample")
+print("\nEngineered Metrics Sample")
 engineered_cols = [
     'ListPrice', 'OriginalListPrice', 'LivingArea',
     'price_ratio', 'close_to_og_list', 'price_per_sqft',
@@ -639,6 +738,7 @@ office_summary.to_csv('data/listings_office_summary.csv', index=False)
 cleaning.to_csv('data/listings_features.csv', index=False)
 print("\nFeatures saved, data/listings_features.csv")
 
+
 # Week 7: Outlier Detection and Data Quality (Listings)
 
 df = cleaning.copy()
@@ -648,11 +748,6 @@ before_size = len(df)
 before_medians = {field: df[field].median() for field in ["ListPrice", "LivingArea", "DaysOnMarket"]}
 
 print(f"\nRows entering Week 7 (Listings): {before_size:,}")
-
-# flag extreme values using IQR + percentiles side by side to guide decisions
-# ListPrice    - IQR 1.5x upper too aggressive for CA luxury market; 99th percentile used instead
-# LivingArea   - IQR 1.5x upper flags large but legitimate homes; 99th percentile used instead
-# DaysOnMarket - long market times are real signal not errors; 3.0x multiplier used, stricter than 99th percentile
 
 iqr_config = {
     "ListPrice":    {"multiplier": 1.5, "use_percentile_upper": True},
@@ -714,13 +809,11 @@ df['invalid_price_ratio_flag'] = (
 )
 print(f"  invalid_price_ratio_flag   : {df['invalid_price_ratio_flag'].sum():,} records (price_ratio < 0.5 or > 2.0, sold listings only)")
 
-
 # save full flagged dataset — nothing deleted, all records preserved
 df.to_csv('data/listings_flagged.csv', index=False)
 print(f"\nFlagged dataset saved, data/listings_flagged.csv  ({len(df):,} rows)")
 
 # build separate clean filtered dataset for analysis
-# exclude rows flagged by any IQR or business rule flag
 iqr_flag_cols      = [f"{field}_outlier" for field in iqr_config.keys()]
 biz_rule_flag_cols = [
     'invalid_list_price_flag',
@@ -736,9 +829,7 @@ clean_df    = df[~is_any_flag].copy()
 clean_df.to_csv('data/listings_clean.csv', index=False)
 print(f"Clean dataset saved, data/listings_clean.csv  ({len(clean_df):,} rows)")
 
-
 # print comparison
-
 after_size = len(clean_df)
 removed    = before_size - after_size
 pct        = removed / before_size * 100
