@@ -235,7 +235,6 @@ for col in date_fields:
 print("\n--- Date Fields Converted to Datetime ---")
 print(cleaning[[c for c in date_fields if c in cleaning.columns]].dtypes)
 
-
 # Week 4: Remove Unnecessary or Redundant Columns
 
 cols_before = len(cleaning.columns)
@@ -607,7 +606,7 @@ for col in ['ListingContractDate', 'PurchaseContractDate', 'CloseDate']:
         cleaning[col] = pd.to_datetime(cleaning[col], errors='coerce')
 
 # Price Ratio
-cleaning['price_ratio'] = cleaning['ClosePrice'] / cleaning['OriginalListPrice']
+cleaning['price_ratio'] = cleaning['ClosePrice'] / cleaning['ListPrice']
 
 # Price Per Sq Ft
 cleaning['price_per_sqft'] = cleaning['ClosePrice'] / cleaning['LivingArea']
@@ -766,7 +765,7 @@ df['invalid_price_per_sqft_flag'] = (
 print(f"  invalid_price_per_sqft_flag: {df['invalid_price_per_sqft_flag'].sum():,} records (price_per_sqft < $10 or > $10,000)")
 
 # price_ratio below 0.5 or above 2.0
-# close price was less than half or more than double the original list price, extremely rare and likely an error
+# close price was less than half or more than double the list price, extremely rare and likely an error
 df['invalid_price_ratio_flag'] = (
     df['price_ratio'] < 0.5) | (df['price_ratio'] > 2.0
 )

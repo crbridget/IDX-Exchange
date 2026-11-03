@@ -611,7 +611,7 @@ for col in ['ListingContractDate', 'PurchaseContractDate', 'CloseDate']:
         cleaning[col] = pd.to_datetime(cleaning[col], errors='coerce')
 
 # Price Ratio (sold listings only — NaN for active/unsold)
-cleaning['price_ratio'] = cleaning['ClosePrice'] / cleaning['OriginalListPrice']
+cleaning['price_ratio'] = cleaning['ClosePrice'] / cleaning['ListPrice']
 
 # Price Per Sq Ft (use ClosePrice if sold, else ListPrice)
 price_col = cleaning['ClosePrice'].where(cleaning['ClosePrice'].notna(), cleaning['ListPrice'])
@@ -631,13 +631,11 @@ cleaning['days_on_market'] = (cleaning['PurchaseContractDate'] - cleaning['Listi
 # Days from Contract to Close (NaN if not yet closed)
 cleaning['contract_to_close'] = (cleaning['CloseDate'] - cleaning['PurchaseContractDate']).dt.days
 
-# Null out price_ratio and close_to_og_list where OriginalListPrice <= 0
+# Null out close_to_og_list where OriginalListPrice <= 0 (ListPrice <= 0 already removed in Week 4)
 if 'OriginalListPrice' in cleaning.columns:
     bad_og_price = cleaning['OriginalListPrice'] <= 0
-    for ratio_col in ['price_ratio', 'close_to_og_list']:
-        if ratio_col in cleaning.columns:
-            cleaning.loc[bad_og_price, ratio_col] = None
-    print(f"\nNulled price_ratio and close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
+    cleaning.loc[bad_og_price, 'close_to_og_list'] = None
+    print(f"\nNulled close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
 
 # Null out negative days_on_market and contract_to_close
 if 'days_on_market' in cleaning.columns:
