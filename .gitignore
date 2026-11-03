@@ -1,17 +1,26 @@
 # Data files
 raw/
-*.csv
-crmls_listed.py
-crmls_sold.py
 data/
+*.csv
 
 # Plots
 plots/
 *.png
 
+# Private fetch scripts (use API credentials)
+crmls_listed.py
+crmls_sold.py
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
 # System files
 .DS_Store
 
-# IDE
+# IDE / tools
 .idea/
-
+.vscode/
+.codescapes/

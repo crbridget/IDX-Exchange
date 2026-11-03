@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 import os
+import calendar
 
 
 # Week 1: Load & Combine 
@@ -351,27 +352,6 @@ invalid_baths = cleaning['BathroomsTotalInteger'] < 0
 print(f"BathroomsTotalInteger < 0: {invalid_baths.sum()} rows removed")
 cleaning = cleaning[~invalid_baths]
 
-# Null out price_ratio and close_to_og_list where OriginalListPrice <= 0
-# These fields are meaningless when denominator is 0 and produce inf values
-if 'OriginalListPrice' in cleaning.columns:
-    bad_og_price = cleaning['OriginalListPrice'] <= 0
-    for ratio_col in ['price_ratio', 'close_to_og_list']:
-        if ratio_col in cleaning.columns:
-            cleaning.loc[bad_og_price, ratio_col] = None
-    print(f"\nNulled price_ratio and close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
-
-# Null out negative days_on_market and contract_to_close (engineered fields)
-# Negative values mean PurchaseContractDate came before ListingContractDate — a date ordering violation
-if 'days_on_market' in cleaning.columns:
-    neg_dom = cleaning['days_on_market'] < 0
-    cleaning.loc[neg_dom, 'days_on_market'] = None
-    print(f"Nulled negative days_on_market (date ordering violation): {neg_dom.sum()} rows")
-
-if 'contract_to_close' in cleaning.columns:
-    neg_ctc = cleaning['contract_to_close'] < 0
-    cleaning.loc[neg_ctc, 'contract_to_close'] = None
-    print(f"Nulled negative contract_to_close (date ordering violation): {neg_ctc.sum()} rows")
-
 print(f"\nRows before invalid value removal: {rows_before}")
 print(f"Rows after invalid value removal: {len(cleaning)}")
 print(f"Rows removed: {rows_before - len(cleaning)}")
@@ -631,7 +611,7 @@ for col in ['ListingContractDate', 'PurchaseContractDate', 'CloseDate']:
         cleaning[col] = pd.to_datetime(cleaning[col], errors='coerce')
 
 # Price Ratio (sold listings only — NaN for active/unsold)
-cleaning['price_ratio'] = cleaning['ClosePrice'] / cleaning['OriginalListPrice']
+cleaning['price_ratio'] = cleaning['ClosePrice'] / cleaning['ListPrice']
 
 # Price Per Sq Ft (use ClosePrice if sold, else ListPrice)
 price_col = cleaning['ClosePrice'].where(cleaning['ClosePrice'].notna(), cleaning['ListPrice'])
@@ -651,13 +631,11 @@ cleaning['days_on_market'] = (cleaning['PurchaseContractDate'] - cleaning['Listi
 # Days from Contract to Close (NaN if not yet closed)
 cleaning['contract_to_close'] = (cleaning['CloseDate'] - cleaning['PurchaseContractDate']).dt.days
 
-# Null out price_ratio and close_to_og_list where OriginalListPrice <= 0
+# Null out close_to_og_list where OriginalListPrice <= 0 (ListPrice <= 0 already removed in Week 4)
 if 'OriginalListPrice' in cleaning.columns:
     bad_og_price = cleaning['OriginalListPrice'] <= 0
-    for ratio_col in ['price_ratio', 'close_to_og_list']:
-        if ratio_col in cleaning.columns:
-            cleaning.loc[bad_og_price, ratio_col] = None
-    print(f"\nNulled price_ratio and close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
+    cleaning.loc[bad_og_price, 'close_to_og_list'] = None
+    print(f"\nNulled close_to_og_list where OriginalListPrice <= 0: {bad_og_price.sum()} rows")
 
 # Null out negative days_on_market and contract_to_close
 if 'days_on_market' in cleaning.columns:
